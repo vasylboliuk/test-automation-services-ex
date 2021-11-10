@@ -1,0 +1,7 @@
+{
+  "placeholderService": {
+    "apiUrl": "",
+    "apiPort": 80,
+    "apiBasePath": ""
+  }
+}
