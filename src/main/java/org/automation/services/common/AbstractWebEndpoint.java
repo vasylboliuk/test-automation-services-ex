@@ -20,15 +20,8 @@ public abstract class AbstractWebEndpoint {
     }
 
     public ValidatableResponse get(RequestSpecification requestSpecification, String path) {
-        return get(requestSpecification, path, null);
-    }
-
-    public ValidatableResponse get(RequestSpecification requestSpecification, String path, Object bodyPayload) {
         RequestSpecBuilder specBuilder = new RequestSpecBuilder();
         specBuilder.addRequestSpecification(requestSpecification);
-        if (bodyPayload != null) {
-            specBuilder.setBody(bodyPayload);
-        }
         return RestAssured.given()
             .spec(specBuilder.build())
             .when()

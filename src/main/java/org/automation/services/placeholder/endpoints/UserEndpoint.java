@@ -3,13 +3,15 @@ package org.automation.services.placeholder.endpoints;
 import io.restassured.response.ValidatableResponse;
 import io.restassured.specification.RequestSpecification;
 import java.util.List;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.automation.models.enums.HttpStatus;
 import org.automation.models.placeholder.UserDto;
 import org.automation.services.common.AbstractWebEndpoint;
 
 public class UserEndpoint extends AbstractWebEndpoint {
 
-
+    private static final Logger LOGGER = LogManager.getLogger();
     private static final String USERS_END = "/users";
     private static final String USERS_RESOURCE_END = "/users/{userID}";
 
@@ -23,6 +25,7 @@ public class UserEndpoint extends AbstractWebEndpoint {
     }
 
     public ValidatableResponse create(UserDto userDto, HttpStatus status) {
+        LOGGER.info("Create new User");
         return post(
             this.specification,
             USERS_END,
@@ -30,22 +33,33 @@ public class UserEndpoint extends AbstractWebEndpoint {
             .statusCode(status.getCode());
     }
 
-    public UserDto update(UserDto userDto, String id) {
-        ValidatableResponse response = put(this.specification, USERS_RESOURCE_END, userDto, id);
-        response.statusCode(200);
-        return response.extract().as(UserDto.class);
+    public UserDto update(int id, UserDto userDto) {
+        return update(userDto, id, HttpStatus.OK)
+            .extract().as(UserDto.class);
     }
 
-    public ValidatableResponse update(UserDto userDto, String id, int statusCode) {
-        ValidatableResponse response = put(this.specification, USERS_RESOURCE_END, userDto, id);
-        response.statusCode(statusCode);
-        return response;
+    public ValidatableResponse update(UserDto userDto, int id, HttpStatus status) {
+        LOGGER.info("Update User by id [{}]", id);
+        return put(
+            this.specification,
+            USERS_RESOURCE_END,
+            userDto,
+            id)
+            .statusCode(status.getCode());
     }
 
     public UserDto getById(String id) {
-        ValidatableResponse response = get(this.specification, USERS_RESOURCE_END, id);
-        response.statusCode(200);
-        return response.extract().as(UserDto.class);
+        return getById(id, HttpStatus.OK)
+            .extract().as(UserDto.class);
+    }
+
+    public ValidatableResponse getById(String id, HttpStatus status) {
+        LOGGER.info("Get User by id [{}]", id);
+        return get(
+            this.specification,
+            USERS_RESOURCE_END,
+            id)
+            .statusCode(status.getCode());
     }
 
     public List<UserDto> getAll() {
@@ -53,6 +67,7 @@ public class UserEndpoint extends AbstractWebEndpoint {
     }
 
     public ValidatableResponse getAll(HttpStatus status) {
+        LOGGER.info("Get all Users");
         ValidatableResponse response = get(this.specification, USERS_END);
         response.statusCode(status.getCode());
         return response;

@@ -189,6 +189,10 @@ public class UserDto extends BaseDto {
             return this;
         }
 
+        public UserDto build() {
+            return UserDto.this;
+        }
+
     }
 
 }
