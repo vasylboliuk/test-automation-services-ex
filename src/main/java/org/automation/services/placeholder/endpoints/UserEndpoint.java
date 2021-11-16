@@ -18,7 +18,6 @@ public class UserEndpoint extends AbstractWebEndpoint {
     }
 
     public UserDto create(UserDto userDto) {
-
         return create(userDto, HttpStatus.CREATED)
             .extract().as(UserDto.class);
     }

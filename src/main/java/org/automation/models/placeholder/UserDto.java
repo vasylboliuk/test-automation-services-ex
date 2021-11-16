@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.automation.generators.Generator;
 import org.automation.models.BaseDto;
 
 
@@ -26,6 +27,14 @@ public class UserDto extends BaseDto {
     private String website;
     @JsonProperty(value = "company", access = JsonProperty.Access.READ_WRITE)
     private CompanyDto company;
+
+    /**
+     * Method using for Build new UserDto payload.
+     */
+    public static Builder newBuilder() {
+        return new UserDto().new Builder();
+    }
+
 
     public String getId() {
         return id;
@@ -135,6 +144,51 @@ public class UserDto extends BaseDto {
             .toHashCode();
     }
 
+    public class Builder {
 
+        private Builder() {
+            UserDto.this.name = "Name " + Generator.randomString();
+            UserDto.this.username = "UserName " + Generator.randomString();
+        }
+
+        public Builder withName(String name) {
+            UserDto.this.name = name;
+            return this;
+        }
+
+        public Builder withUserName(String userName) {
+            UserDto.this.username = userName;
+            return this;
+        }
+
+        public Builder withEmail(String email) {
+            UserDto.this.email = email;
+            return this;
+        }
+
+        public Builder withAddress(AddressDto address) {
+            UserDto.this.address = address;
+            return this;
+        }
+
+        public Builder withPhone(String phone) {
+            UserDto.this.phone = phone;
+            return this;
+        }
+
+        public Builder withWebsite(String website) {
+            UserDto.this.website = website;
+            return this;
+        }
+
+        public Builder withCompany(String name, String catchPhrase, String bs) {
+            UserDto.this.company = new CompanyDto()
+                .setName(name)
+                .setBs(bs)
+                .setCatchPhrase(catchPhrase);
+            return this;
+        }
+
+    }
 
 }

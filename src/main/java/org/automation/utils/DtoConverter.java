@@ -88,8 +88,7 @@ public class DtoConverter {
      */
     public static <T> T jsonFileToDto(String filePath, TypeReference<T> typeReference) {
         ObjectMapper mapper = new ObjectMapper();
-        mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
-        mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         try (InputStream inputStream = FileUtil.getFileInputStream(filePath, DtoConverter.class)) {
             return mapper.readValue(inputStream, typeReference);
         } catch (IOException e) {

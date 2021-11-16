@@ -37,10 +37,5 @@ public class MavenProperties {
         return getMavenProperties().getProperty(ENVIRONMENT_PROPERTY);
     }
 
-    public static void main(String[] args) {
-
-       getCurrentEnvironment();
-
-    }
 
 }

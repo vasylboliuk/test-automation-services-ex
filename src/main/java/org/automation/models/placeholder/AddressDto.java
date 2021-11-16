@@ -1,5 +1,6 @@
 package org.automation.models.placeholder;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.apache.commons.lang3.builder.EqualsBuilder;
@@ -65,6 +66,15 @@ public class AddressDto extends BaseDto {
         return this;
     }
 
+    @JsonIgnore
+    public AddressDto setAddressGeo(String lat, String lng) {
+        this.geo = new AddressGeoDto()
+            .setLat(lat)
+            .setLng(lng);
+        return this;
+    }
+
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -94,4 +104,6 @@ public class AddressDto extends BaseDto {
             .append(geo)
             .toHashCode();
     }
+
+
 }

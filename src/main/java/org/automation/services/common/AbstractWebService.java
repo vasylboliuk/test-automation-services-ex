@@ -1,6 +1,9 @@
 package org.automation.services.common;
 
 import io.restassured.builder.RequestSpecBuilder;
+import io.restassured.filter.log.ErrorLoggingFilter;
+import io.restassured.filter.log.RequestLoggingFilter;
+import io.restassured.filter.log.ResponseLoggingFilter;
 import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
 import org.apache.commons.lang3.StringUtils;
@@ -32,8 +35,12 @@ public abstract class AbstractWebService {
         if (!StringUtils.isEmpty(apiConfig.getApiBasePath())) {
             specBuilder.setBasePath(apiConfig.getApiBasePath());
         }
+        specBuilder
+            .addFilter(new ResponseLoggingFilter())
+            .addFilter(new RequestLoggingFilter())
+            .addFilter(new ErrorLoggingFilter());
+
         return specBuilder.build();
     }
-
 
 }
