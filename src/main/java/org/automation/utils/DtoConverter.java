@@ -2,8 +2,12 @@ package org.automation.utils;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import java.io.IOException;
+import java.io.InputStream;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.util.Strings;
@@ -56,6 +60,42 @@ public class DtoConverter {
         return result;
     }
 
+    /**
+     * Convert string to dto.
+     * @param dtoClass - source
+     * @param content  - target
+     * @param <T> - T any type suitable for deserialization, list, map, dto
+     * @return T
+     */
+    public static <T> T stringToDto(Class<T> dtoClass, String content) {
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        try {
+            return objectMapper.readValue(content, dtoClass);
+        } catch (IOException e) {
+            LOGGER.error(e);
+            return null;
+        }
+    }
 
+    /**
+     * Read a json file and deserialize it using TypeReference.
+     *
+     * @param filePath      path to json file
+     * @param typeReference TypeReference describing an object
+     * @param <T>           T any type suitable for deserialization, list, map, dto
+     * @return T
+     */
+    public static <T> T jsonFileToDto(String filePath, TypeReference<T> typeReference) {
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
+        mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+        try (InputStream inputStream = FileUtil.getFileInputStream(filePath, DtoConverter.class)) {
+            return mapper.readValue(inputStream, typeReference);
+        } catch (IOException e) {
+            LOGGER.error(e);
+        }
+        return null;
+    }
 
 }
