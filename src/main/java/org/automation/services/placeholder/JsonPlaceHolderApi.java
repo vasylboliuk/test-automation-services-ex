@@ -2,6 +2,7 @@ package org.automation.services.placeholder;
 
 import io.restassured.specification.RequestSpecification;
 import org.automation.services.common.AbstractWebService;
+import org.automation.services.placeholder.endpoints.CommentEndpoint;
 import org.automation.services.placeholder.endpoints.UserEndpoint;
 
 public class JsonPlaceHolderApi extends AbstractWebService {
@@ -23,6 +24,8 @@ public class JsonPlaceHolderApi extends AbstractWebService {
         return new UserEndpoint(requestSpecification);
     }
 
-
+    public CommentEndpoint comment() {
+        return new CommentEndpoint(requestSpecification);
+    }
 
 }

@@ -1,8 +1,8 @@
 package org.automation.testcases.testdata;
 
 import org.automation.generators.Generator;
-import org.automation.models.placeholder.AddressDto;
-import org.automation.models.placeholder.UserDto;
+import org.automation.models.placeholder.user.AddressDto;
+import org.automation.models.placeholder.user.UserDto;
 
 public class UserTestData {
 

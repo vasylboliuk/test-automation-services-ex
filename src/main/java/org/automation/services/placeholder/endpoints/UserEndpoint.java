@@ -6,7 +6,7 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.automation.models.enums.HttpStatus;
-import org.automation.models.placeholder.UserDto;
+import org.automation.models.placeholder.user.UserDto;
 import org.automation.services.common.AbstractWebEndpoint;
 
 public class UserEndpoint extends AbstractWebEndpoint {

@@ -1,4 +1,4 @@
-package org.automation.models.placeholder;
+package org.automation.models.placeholder.user;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;

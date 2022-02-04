@@ -8,6 +8,16 @@ public class Generator {
         // default private constructor
     }
 
+
+    public static int randomNumber() {
+        return randomNumber(0, 1000000);
+    }
+
+    public static int randomNumber(int min, int max) {
+        Random random = new Random();
+        return random.nextInt(max - min) + min;
+    }
+
     public static String randomString() {
         return randomString(10); // default string length
     }
@@ -19,6 +29,10 @@ public class Generator {
             .limit(targetStringLength)
             .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
             .toString();
+    }
+
+    public static String randomEmail() {
+        return randomString() + "@" + randomString() + ".com";
     }
 
 }

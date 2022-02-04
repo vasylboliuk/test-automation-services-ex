@@ -2,7 +2,7 @@ package paleceholder.service;
 
 import java.util.List;
 import org.assertj.core.api.Assertions;
-import org.automation.models.placeholder.UserDto;
+import org.automation.models.placeholder.user.UserDto;
 import org.automation.services.Services;
 import org.automation.testcases.groups.BaseGroups;
 import org.automation.testcases.testdata.TestData;
